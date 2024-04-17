@@ -1,0 +1,15 @@
+{
+  "name": "proshop",
+  "version": "1.0.0",
+  "description": "\"e-commerce\"",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "mdcodelab",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
