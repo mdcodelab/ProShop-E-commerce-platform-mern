@@ -55,3 +55,7 @@ table th {
 a {
   text-decoration: none;
 }
+
+.navLink {
+  width: max-content;
+}

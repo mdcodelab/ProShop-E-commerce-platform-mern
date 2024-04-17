@@ -1,8 +1,8 @@
-import React from 'react';
-import {Navbar, Nav, Container} from "react-bootstrap";
-import {FaShoppingCart, FaUser} from "react-icons/fa";
+import React from "react";
+import { Navbar, Nav, Container } from "react-bootstrap";
+import { FaShoppingCart, FaUser } from "react-icons/fa";
 import logo from "../assets/logo.png";
-import {LinkContainer} from "react-router-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 
 function Header() {
   return (
@@ -21,14 +21,13 @@ function Header() {
           <Navbar.Toggle aria-controls="basic-navbar-nav"></Navbar.Toggle>
         </Container>
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto" style={{ width: "max-content" }}>
+          <Nav className="ms-auto d-flex align-items-center">
             <LinkContainer to="/cart">
-              <Nav.Link>
-                <FaShoppingCart></FaShoppingCart> Cart
-              </Nav.Link>
+              <Nav.Link className="navLink">
+                <FaShoppingCart></FaShoppingCart> Cart</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/login">
-              <Nav.Link><FaUser></FaUser> Sign in</Nav.Link>
+              <Nav.Link className="navLink"><FaUser></FaUser> Sign in</Nav.Link>
             </LinkContainer>
           </Nav>
         </Navbar.Collapse>
@@ -37,4 +36,4 @@ function Header() {
   );
 }
 
-export default Header
+export default Header;

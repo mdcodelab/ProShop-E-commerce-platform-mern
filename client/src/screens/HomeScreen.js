@@ -7,7 +7,7 @@ import Product from "../components/Product";
 function HomeScreen() {
   return (
     <>
-     <h1>Latest Products</h1> 
+     <h1 className="text-center">Latest Products</h1> 
      <Row>
         {products.map((product) => {
             return <Col sm={12} md={6} lg={4} xl={3} key={product._id}>
