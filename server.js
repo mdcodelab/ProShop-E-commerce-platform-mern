@@ -10,7 +10,7 @@ app.get("/", (req, res) => {
     res.send("API is running...");
 })
 
-app.get("/api/products", (req,res) => {
+app.get("/api/v1/products", (req,res) => {
     res.json(products)
 })
 
