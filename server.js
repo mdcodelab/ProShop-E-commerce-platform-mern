@@ -2,6 +2,8 @@ import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
 const app = express();
+import {connectDB} from "./connectDB.js";
+connectDB();
 import {products} from "./data/dataProducts.js";
 
 app.use(express.json());
