@@ -4,7 +4,7 @@ import express from "express";
 const app = express();
 import {connectDB} from "./connectDB.js";
 connectDB();
-import {products} from "./data/dataProducts.js";
+import routerProducts from "./routes/productRoutes.js";
 
 app.use(express.json());
 
@@ -12,14 +12,7 @@ app.get("/", (req, res) => {
     res.send("API is running...");
 })
 
-app.get("/api/v1/products", (req,res) => {
-    res.json(products)
-})
-
-app.get("/api/v1/products/:id", (req, res) => {
-    const product=products.find(p => p._id === req.params.id);
-    res.json(product)
-})
+app.use("/api/v1/products", routerProducts);
 
 const port=process.env.PORT || 4000;
 

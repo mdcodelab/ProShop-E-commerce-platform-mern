@@ -55,4 +55,4 @@ if (process.argv[2] === "-d") {
 }
 
 //node seeder.js -d (destroy)
- -or-node seeder.js (import)
+ //-or-node seeder.js (import)
