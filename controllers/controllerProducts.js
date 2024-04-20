@@ -1,6 +1,7 @@
 import Product from "../models/productModel.js";
 
-// Get all products
+// Get all products  api/v1/products
+//public
 export const getAllProducts = async (req, res) => {
   try {
     const products = await Product.find({});
@@ -10,7 +11,9 @@ export const getAllProducts = async (req, res) => {
   }
 };
 
-// Get single product
+
+// Get single product api/v1/products/:id
+//public
 export const getProduct = async (req, res) => {
     const { id } = req.params;
     try {
@@ -18,9 +21,15 @@ export const getProduct = async (req, res) => {
         if (!product) {
             return res.status(404).json({ message: "Product not found." });
         }
-        res.status(200).json(product);
+        return res.status(200).json(product);
     } catch (error) {
-        res.status(404).json({ message: "Product not found." });
+        if (error.name === 'CastError' && error.kind === 'ObjectId') {
+            return res.status(400).json({ message: "Invalid product ID." });
+        }
+        // For other types of errors, respond with 500
+        return res.status(500).json({ message: "Internal server error." });
     }
 };
+
+
 

@@ -5,6 +5,7 @@ const app = express();
 import {connectDB} from "./connectDB.js";
 connectDB();
 import routerProducts from "./routes/productRoutes.js";
+import {notFound, errorHandler} from "./middlewares/errorMiddleware.js";
 
 app.use(express.json());
 
@@ -13,6 +14,8 @@ app.get("/", (req, res) => {
 })
 
 app.use("/api/v1/products", routerProducts);
+app.use(notFound);
+app.use(errorHandler);
 
 const port=process.env.PORT || 4000;
 
