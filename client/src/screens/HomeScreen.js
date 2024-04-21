@@ -9,7 +9,7 @@ function HomeScreen() {
 
   React.useEffect(() => {
 const getAllProducts = async () => {
-  const {data} = await axios.get("/api/v1/products");
+  const {data} = await axios.get("/api/products");
   setProducts(data);
 }
 getAllProducts();
