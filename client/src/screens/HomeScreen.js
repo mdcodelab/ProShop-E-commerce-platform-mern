@@ -1,14 +1,15 @@
 import React from 'react';
 import {Row, Col} from "react-bootstrap";
 import Product from "../components/Product";
-import axios from "axios";
 import { useGetAllProductsQuery } from '../slices/productsApiSlice';
+import Loader from '../components/Loader';
+import Message from '../components/Message';
 
 
 function HomeScreen() {
   const {data:products, isLoading, error}=useGetAllProductsQuery();
 
-{isLoading ? (<h2>Loading...</h2>) : error ? (<div>{error?.data.message || error.error}</div>) : (
+{isLoading ? (<Loader/>) : error ? (<Message variant="danger">{error?.data.message || error.error}</Message>) : (
 <>
 
 </>)}
@@ -16,7 +17,7 @@ function HomeScreen() {
 
   return (
     <>
-      {isLoading ? (<h2>Loading...</h2>) : error ? (
+      {isLoading ? (<Loader></Loader>) : error ? (
         <div>{error?.data.message || error.error}</div>
       ) : (
         <>
