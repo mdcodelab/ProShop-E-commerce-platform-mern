@@ -1,4 +1,4 @@
-//this is the base for our slices
+//this is the base (parent) for our slices
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 
 import {BASE_URL} from "../constants";
