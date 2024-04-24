@@ -22,6 +22,9 @@ function ProductScreen() {
       navigate("/cart");
     }
 
+    console.log(quantity);
+    console.log(product);
+
 
   return (
     <>
