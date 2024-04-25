@@ -5,6 +5,7 @@ const app = express();
 import {connectDB} from "./connectDB.js";
 connectDB();
 import routerProducts from "./routes/productRoutes.js";
+import routerUsers from "./routes/userRoutes.js";
 import {notFound, errorHandler} from "./middlewares/errorMiddleware.js";
 
 app.use(express.json());
@@ -14,6 +15,7 @@ app.get("/", (req, res) => {
 })
 
 app.use("/api/products", routerProducts);
+app.use("/api/users", routerUsers);
 app.use(notFound);
 app.use(errorHandler);
 
