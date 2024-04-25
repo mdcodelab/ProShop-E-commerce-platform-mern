@@ -16,9 +16,10 @@ const cartSlice = createSlice({
       const {item, quantity} = action.payload;
       const existItem = state.cartItems.find((x) => x._id === item._id);
       if (existItem) {
-        existItem.quantity+=quantity;
+            state.cartItems = state.cartItems.map((x) =>
+              x._id === existItem._id ? { ...item, quantity } : x);
       } else {
-        state.cartItems.push({...item, quantity});
+        state.cartItems = [...state.cartItems, { ...item, quantity }];
       }
       //calculate items price
       state.itemsPrice = addDecimals(
