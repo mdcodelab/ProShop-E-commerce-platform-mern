@@ -1,5 +1,6 @@
 import User from "../models/userModel.js";
 import {notFound, errorHandler} from "../middlewares/errorMiddleware.js";
+import jwt from "jsonwebtoken";
 
 //auth user & get the token
 //POST api/users/auth
@@ -8,6 +9,14 @@ const authUser = async (req, res) => {
 const {email, password}=req.body;
 const user = await User.findOne({email});
 if(user && (await user.matchPassword(password))) {
+    const token = jwt.sign({userId: user._id}, process.env.JWT_SECRET, {expiresIn: "30d"})
+    //set jwt as Http cookie
+    res.cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV !== "development",
+        sameSite: "strict",
+        maxAge: 30*24*60*60*1000  //30deys in mill.sec
+    })
     res.json({name: user.name, email: user.email, password: user.password, isAdmin: user.isAdmin})
 } else {
     res.status(401).json({message: "Invalid email or password"});
