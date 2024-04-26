@@ -1,10 +1,17 @@
 import User from "../models/userModel.js";
+import {notFound, errorHandler} from "../middlewares/errorMiddleware.js";
 
 //auth user & get the token
 //POST api/users/auth
 //public
 const authUser = async (req, res) => {
-    res.send("Auth user");
+const {email, password}=req.body;
+const user = await User.findOne({email});
+if(user && (await user.matchPassword(password))) {
+    res.json({name: user.name, email: user.email, password: user.password, isAdmin: user.isAdmin})
+} else {
+    res.status(401).json({message: "Invalid email or password"});
+}
 }
 
 

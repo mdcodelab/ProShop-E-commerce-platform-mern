@@ -8,7 +8,9 @@ import routerProducts from "./routes/productRoutes.js";
 import routerUsers from "./routes/userRoutes.js";
 import {notFound, errorHandler} from "./middlewares/errorMiddleware.js";
 
+//body parser middleware
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 app.get("/", (req, res) => {
     res.send("API is running...");
