@@ -36,8 +36,12 @@ const registerUser = async (req, res) => {
 //logout user / clear cookie
 //POST api/users/logout
 //private
-const logoutUser = async (req, res) => {
-    res.send("Logout user");
+const logoutUser = async (req, res, next) => {
+    res.cookie("jwt", "", {
+        httpOnly: true,
+        expires: new Date(0)
+    })
+    res.status(200).json({message: "Logged out successfully."});
 }
 
 //get user profile
