@@ -17,7 +17,7 @@ if(user && (await user.matchPassword(password))) {
         sameSite: "strict",
         maxAge: 30*24*60*60*1000  //30days in mill.sec
     })
-    res.json({id: user._id, name: user.name, email: user.email, 
+    res.status(200).json({id: user._id, name: user.name, email: user.email, 
         password: user.password, isAdmin: user.isAdmin})
 } else {
     res.status(401).json({message: "Invalid email or password"});
@@ -66,18 +66,36 @@ const logoutUser = async (req, res) => {
     res.status(200).json({message: "Logged out successfully."});
 }
 
-//get user profile
+//get 1 user profile
 //GET api/users/profile
 //public
 const getUserProfile = async (req, res) => {
-    res.send("Get user profile");
+    const user = await User.findById(req.user._id);
+    if(user) {
+        res.status(200).json({_id: user._id, name: user.name, email: user.email, password: user.password})
+    } else {
+        res.status(404).json({message: 'User not found.'})
+    }
 }
 
-//update user profile
+//update 1 user profile
 //PUT api/users/profile   (we do not use the id, because we use token)
 //private
 const updateUserProfile = async (req, res) => {
-    res.send("Update user profile");
+    const user = await User.findById(req.user._id);
+    if (user) {
+        user.name=req.body.name || user.name,
+        user.email= req.body.email || user.email
+        if(req.body.password) {
+            user.password = req.body.password
+        }
+    const updatedUser = await user.save();
+    res.status(200).json({_id: updatedUser._id, name: updatedUser.name, 
+        email: updatedUser.email, isAdmin: updatedUser.isAdmin})
+    } else {
+        res.status(404).json({message: "User does not exist."})
+    }
+    
 }
 
 //get all users (admin)
