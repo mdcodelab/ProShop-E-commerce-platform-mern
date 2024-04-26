@@ -2,11 +2,15 @@ import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
 const app = express();
+import cookieParser from "cookie-parser";
 import {connectDB} from "./connectDB.js";
 connectDB();
 import routerProducts from "./routes/productRoutes.js";
 import routerUsers from "./routes/userRoutes.js";
 import {notFound, errorHandler} from "./middlewares/errorMiddleware.js";
+
+//cookie parser middleware - allows us to access cookies
+app.use(cookieParser());
 
 //body parser middleware
 app.use(express.json());
