@@ -26,7 +26,7 @@ if(user && (await user.matchPassword(password))) {
 
 
 //register user
-//POST api/users - we create a new user
+//POST api/users/register - we create a new user
 //public
 const registerUser = async (req, res) => {
     const {name, email, password}=req.body;

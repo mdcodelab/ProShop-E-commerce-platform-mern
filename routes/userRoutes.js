@@ -7,7 +7,7 @@ import {authUser, registerUser, logoutUser, getUserProfile,
 
     import {protect, admin} from "../middlewares/authMiddelare.js"
 
-    router.route("/").post(registerUser).get(protect, admin, getUsers);
+    router.route("/register").post(registerUser).get(protect, admin, getUsers);
     router.route("/auth").post(authUser);
     router.route("/logout").post(logoutUser);
     router.route("/profile").get(protect, getUserProfile).put(protect, updateUserProfile);
