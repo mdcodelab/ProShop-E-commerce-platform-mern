@@ -1,4 +1,6 @@
 import React from "react";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 import { Container } from "react-bootstrap";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -18,6 +20,8 @@ function App() {
         </Container>
       </main>
       <Footer></Footer>
+      <ToastContainer position="top-center" toastStyle={{ textAlign: "center" }}
+      />
     </>
   );
 }
