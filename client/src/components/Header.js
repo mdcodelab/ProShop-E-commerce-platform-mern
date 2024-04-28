@@ -1,19 +1,23 @@
 import React from "react";
-import { Navbar, Nav, Container, Badge } from "react-bootstrap";
+import { Navbar, Nav, Container, Badge, NavDropdown } from "react-bootstrap";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
 import logo from "../assets/logo.png";
 import { LinkContainer } from "react-router-bootstrap";
 import { useSelector } from "react-redux";
 
 function Header() {
-  const { cartItems } = useSelector((state) => state.cart);
+  const { cartItems} = useSelector((state) => state.cart);
+  const {userInfo}=useSelector(state => state.auth);
   //console.log(cartItems);
+  //console.log(userInfo);
 
   // Calculate total quantity of items in the cart
   const totalQuantity = cartItems.reduce(
-    (total, cartItem) => total + cartItem.quantity,
-    0
-  );
+    (total, cartItem) => total + cartItem.quantity,0);
+
+    const handleLogout = () => {
+      console.log("logout")
+    }
 
   return (
     <header>
@@ -42,11 +46,18 @@ function Header() {
                 <FaShoppingCart /> Cart
               </Nav.Link>
             </LinkContainer>
-            <LinkContainer to="/login">
+            {userInfo ? (<NavDropdown title={userInfo.name} id="username">
+                  <LinkContainer to="/profile">
+                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                  </LinkContainer>
+                    <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+            </NavDropdown>) 
+            : (<LinkContainer to="/login">
               <Nav.Link className="navLink">
-                <FaUser /> Sign in
+                <FaUser /> Sign In
               </Nav.Link>
-            </LinkContainer>
+            </LinkContainer>)}
+            
           </Nav>
         </Navbar.Collapse>
       </Navbar>
