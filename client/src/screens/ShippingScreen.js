@@ -6,7 +6,7 @@ import { saveShippingAddress } from '../slices/cartSlice';
 import {useNavigate} from "react-router-dom";
 
 function ShippingScreen() {
-     const cart  = useSelector((state) => state.cart || {});
+     const cart = useSelector((state) => state.cart || {});
      const { shippingAddress } = cart;
 
     const[address, setAddress]=React.useState(shippingAddress?.address || "");
