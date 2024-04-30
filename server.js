@@ -7,6 +7,7 @@ import {connectDB} from "./connectDB.js";
 connectDB();
 import routerProducts from "./routes/productRoutes.js";
 import routerUsers from "./routes/userRoutes.js";
+import routerOrders from "./routes/orderRoutes.js";
 import {notFound, errorHandler} from "./middlewares/errorMiddleware.js";
 
 //cookie parser middleware - allows us to access cookies
@@ -22,6 +23,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/products", routerProducts);
 app.use("/api/users", routerUsers);
+app.use("/api/orders", routerOrders);
 app.use(notFound);
 app.use(errorHandler);
 
