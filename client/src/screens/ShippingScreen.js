@@ -2,7 +2,7 @@ import React from 'react';
 import FormContainer from '../components/FormContainer';
 import {Form, Button} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
-import { saveShippingAddress } from '../slices/cartSlice';
+import { saveShippingAddress } from '../slices/cartSlice'; //brig here to save on localStorage
 import {useNavigate} from "react-router-dom";
 import CheckoutSteps from '../components/CheckoutSteps';
 
