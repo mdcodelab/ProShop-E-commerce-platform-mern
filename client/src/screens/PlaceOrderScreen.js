@@ -36,8 +36,7 @@ const dispatch=useDispatch();
         totalPrice: cart.totalPrice
       }).unwrap();
       //dispatch(clearCartItems());
-      //toast.success("Order placed successfully.")
-      navigate(`/order/${res._id}`)
+      navigate(`/orders/${res.orderCreated._id}`); //capture the id for the next page we navigate
     } catch (err) {
       console.log(err);
       console.error(err);

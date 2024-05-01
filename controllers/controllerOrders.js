@@ -41,8 +41,7 @@ const getMyOrders = async (req, res) => {
 //GET api/orders/:id
 //private admin
 const  getOrderById = async (req, res) => {
-    const order = await Order.findOneById(req.params.id).populate("user", "name email")
-    res.send("Get order by id");
+    const order = await Order.findById(req.params.id).populate("user", "name email")
     if(order) {
         res.status(200).json(order);
     } else {
