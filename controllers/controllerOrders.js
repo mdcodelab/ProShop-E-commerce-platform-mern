@@ -23,7 +23,7 @@ const  addOrderItems = async (req, res) => {
            totalPrice
         })
         const orderCreated = await order.save();
-        res.send(201).json({orderCreated})
+        res.status(201).json({orderCreated})
     }
     
 }

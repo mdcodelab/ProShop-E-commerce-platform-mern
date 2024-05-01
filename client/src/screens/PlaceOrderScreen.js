@@ -1,13 +1,20 @@
 import React from "react";
 import CheckoutSteps from "../components/CheckoutSteps";
 import { Row, Col, ListGroup, Image, Card, Button} from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import Message from "../components/Message";
+import Loader from "../components/Loader";
+import { useAddOrderItemsMutation } from "../slices/ordersApiSlice";
+import { clearCartItems } from "../slices/cartSlice";
+import {toast} from "react-toastify";
+
 
 function PlaceOrderScreen() {
   const cart = useSelector((state) => state.cart);
-  const navigate = useNavigate();
+  const[addOrderItems, {isLoading, error}]=useAddOrderItemsMutation();
+const navigate=useNavigate();
+const dispatch=useDispatch();
 
   React.useEffect(() => {
     if (!cart.shippingAddress.address) {
@@ -17,8 +24,25 @@ function PlaceOrderScreen() {
     }
   }, [cart.shippingAddress.address, cart.paymentMethod, navigate]);
 
-  const placeOrderHandler = () => {
-    
+  const placeOrderHandler = async () => {
+    try {
+      const res= await addOrderItems({
+        orderItems: cart.cartItems,
+        shippingAddress: cart.shippingAddress,
+        paymentMethod: cart.paymentMethod,
+        itemsPrice: cart.itemsPrice,
+        shippingPrice: cart.shippingPrice,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice
+      }).unwrap();
+      //dispatch(clearCartItems());
+      //toast.success("Order placed successfully.")
+      navigate(`/order/${res._id}`)
+    } catch (err) {
+      console.log(err);
+      console.error(err);
+      toast.error("There is an error");
+    }
   }
 
   return (
@@ -94,12 +118,17 @@ function PlaceOrderScreen() {
                     <Col>${cart.totalPrice}</Col>
                   </Row>
                 </ListGroup.Item>
-              </ListGroup>
+
+                <ListGroup.Item>
+              {error && (<Message variant="danger">{error}</Message>)}
+            </ListGroup.Item>
 
               <ListGroup.Item>
                 <Button type="button" className="btn-block" 
                 disabled={cart.cartItems.length === 0} onClick={placeOrderHandler}>Place Order</Button>
+                {isLoading && <Loader></Loader>}
               </ListGroup.Item>
+              </ListGroup>
           </Card>
         </Col>
       </Row>
