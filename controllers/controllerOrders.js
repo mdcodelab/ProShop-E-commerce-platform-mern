@@ -54,7 +54,21 @@ const  getOrderById = async (req, res) => {
 //PUT api/orders/:id/pay
 //private
 const  updateOrderToPaid = async (req, res) => {
-    res.send("Update order items") 
+    const order = await findById(req.params.id);
+    if (order) {
+        order.isPaid= true;
+        order.paidAt = Date.now();
+        order.paymentResult = {   //this stuff will come from PyPal (PayPal Developer Tools)
+      id: req.body.id,
+      status: req.body.status,
+      update_time: req.body.update_time,
+      email_address: req.body.email_address,
+    }
+    const updateOrder = order.save();
+    res.status(200).json({updateOrder})
+    } else {
+        res.status(404).json({message: "Not found."})
+    }
 }
 
 
@@ -62,7 +76,7 @@ const  updateOrderToPaid = async (req, res) => {
 //PUT api/orders/:id/deliver
 //private admin
 const  updateOrderToDelivered = async (req, res) => {
-    res.send("Update order to delivered");
+    const order = await findById(req.params.id);
 }
 
 //get all orders

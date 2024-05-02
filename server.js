@@ -24,6 +24,9 @@ app.get("/", (req, res) => {
 app.use("/api/products", routerProducts);
 app.use("/api/users", routerUsers);
 app.use("/api/orders", routerOrders);
+app.get("/api/config/paypal", (req, res) => {
+res.send({clientId: process.env.PAYPAL_CLIENT_ID})
+})
 app.use(notFound);
 app.use(errorHandler);
 
