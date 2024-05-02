@@ -4,14 +4,44 @@ import {Row, Col, ListGroup, Image, Form, Button, CardFooter, Card} from "react-
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { useDispatch, useSelector } from "react-redux";
-import { useGetOrderDetailsQuery } from "../slices/ordersApiSlice";
-//we are getting data from database
+import { useGetOrderDetailsQuery, useGetPayPalClientIdQuery, useUpdateOrderToPaidMutation } from "../slices/ordersApiSlice";
+import {PAYpalButtons, usePayPalScriptReducer} from "@paypal/react-paypal-js";
+import {toast} from "react-toastify";
+
 
 function OrderScreen() {
-  const {id: orderId}=useParams(); 
-  const {data: order, isLoading, error, refetch}=useGetOrderDetailsQuery(orderId);
-
+  //we are getting data from database
+  const { id: orderId } = useParams();
+  const {data: order, isLoading, error, refetch} = useGetOrderDetailsQuery(orderId);
   console.log(order);
+  const[payOrder, {isLoading: loadingPay}]=useUpdateOrderToPaidMutation();
+  const[{isPending}, paypalDispatch]=usePayPalScriptReducer();
+const {userInfo}=useSelector(state => state.auth);
+
+const {data: paypal, isLoading: loadingPayPal, error: errorPayPal}=useGetPayPalClientIdQuery();
+
+React.useEffect(() => {
+if(!errorPayPal && !loadingPayPal && paypal.clientId) {
+const loadPayPalScript = async () => {
+  paypalDispatch({
+    type: "resetOptions",
+    value: {
+      "client-id": paypal.clientId,
+      "currency": "USD"
+    }
+  })
+  paypalDispatch({type: "setLoadingStatus", value: "pending"})
+}
+
+if(order && !order.isPaid) {
+  if(!window.paypal) {
+    loadPayPalScript();
+  }
+}
+}
+}, [order, paypal, paypalDispatch, loadingPayPal, errorPayPal])
+
+
   return (
     <>
       {isLoading ? (
