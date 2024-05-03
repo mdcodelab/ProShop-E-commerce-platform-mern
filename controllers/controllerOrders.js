@@ -29,12 +29,12 @@ const  addOrderItems = async (req, res) => {
 }
 
 
-//get logged in user's orders - able to get the id via cookie
+//get logged in user's orders - able to get the id via cookie. It will display orders by the user
 //GET /api/orders/myOrders
 //private
 const getMyOrders = async (req, res) => {
     const orders = await Order.find({user: req.user._id});
-    res.status.json(orders);
+    res.status(200).json(orders);
 }
 
 //get order by id
