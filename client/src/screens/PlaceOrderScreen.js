@@ -16,27 +16,27 @@ function PlaceOrderScreen() {
 const navigate=useNavigate();
 const dispatch=useDispatch();
 
-  React.useEffect(() => {
-    if (!cart.shippingAddress.address) {
-      navigate("/shipping");
-    } else if (!cart.paymentMethod) {
-      navigate("/payment");
-    }
-  }, [cart.shippingAddress.address, cart.paymentMethod, navigate]);
+  // React.useEffect(() => {
+  //   if (!cart.shippingAddress.address) {
+  //     navigate("/shipping");
+  //   } else if (!cart.paymentMethod) {
+  //     navigate("/payment");
+  //   }
+  // }, [cart.shippingAddress.address, cart.paymentMethod, navigate]);
 
   const placeOrderHandler = async () => {
     try {
-      const res= await addOrderItems({
+      const res = await addOrderItems({
         orderItems: cart.cartItems,
         shippingAddress: cart.shippingAddress,
         paymentMethod: cart.paymentMethod,
         itemsPrice: cart.itemsPrice,
         shippingPrice: cart.shippingPrice,
         taxPrice: cart.taxPrice,
-        totalPrice: cart.totalPrice
+        totalPrice: cart.totalPrice,
       }).unwrap();
-      //dispatch(clearCartItems());
       navigate(`/orders/${res.orderCreated._id}`); //capture the id for the next page we navigate
+      dispatch(clearCartItems());
     } catch (err) {
       console.log(err);
       console.error(err);

@@ -5,7 +5,7 @@ import dataUsers from "./data/dataUsers.js";
 import dataProducts from "./data/dataProducts.js";
 import User from "./models/userModel.js";
 import Product from "./models/productModel.js";
-import Order from "./models/orderModel.js";
+import Order from "./models/ordersModel.js";
 import {connectDB} from "./connectDB.js";
 
 connectDB();
@@ -37,8 +37,8 @@ const importData = async () => {
 const destroyData = async () => {
   try {
     await Order.deleteMany();
-    await Product.deleteMany();
-    await User.deleteMany();
+    // await Product.deleteMany();
+    // await User.deleteMany();
 
     console.log("Data Destroyed!");
     process.exit();

@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import {Row, Col, ListGroup, Image, Form, Button, CardFooter, Card} from "react-bootstrap";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useGetOrderDetailsQuery, useGetPayPalClientIdQuery, useUpdateOrderToPaidMutation } from "../slices/ordersApiSlice";
 import {PayPalButtons, usePayPalScriptReducer} from "@paypal/react-paypal-js";
 import {toast} from "react-toastify";
@@ -17,6 +17,7 @@ function OrderScreen() {
   const[payOrder, {isLoading: loadingPay}]=useUpdateOrderToPaidMutation();
   const[{isPending}, paypalDispatch]=usePayPalScriptReducer();
 const {userInfo}=useSelector(state => state.auth);
+
 
 const {data: paypal, isLoading: loadingPayPal, error: errorPayPal}=useGetPayPalClientIdQuery();
 
@@ -55,12 +56,12 @@ function onApprove(data, actions) {
     });
   }
 
+  //this is for test button (removed in production)
   async function onApproveTest() {
-  await payOrder({ orderId, details: { payer: {} } });
-     refetch();
-
-     toast.success('Order is paid');
-   }
+    await payOrder({ orderId, details: { payer: {} } });
+    refetch();
+    toast.success("Order is paid");
+  }
 
 
   function onError(err) {

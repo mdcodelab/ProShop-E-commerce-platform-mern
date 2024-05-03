@@ -4,6 +4,7 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import FormContainer from "../components/FormContainer";
+import CheckoutSteps from "../components/CheckoutSteps";
 
 import { useLoginMutation } from "../slices/usersApiSlice";
 import { setCredentials } from "../slices/authSlice";
@@ -44,6 +45,7 @@ const LoginScreen = () => {
 
   return (
     <FormContainer>
+      <CheckoutSteps step1></CheckoutSteps>
       <h1>Sign In</h1>
 
       <Form onSubmit={submitHandler}>
