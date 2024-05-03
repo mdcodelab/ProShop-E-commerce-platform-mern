@@ -5,7 +5,7 @@ import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetOrderDetailsQuery, useGetPayPalClientIdQuery, useUpdateOrderToPaidMutation } from "../slices/ordersApiSlice";
-import {PAYpalButtons, usePayPalScriptReducer} from "@paypal/react-paypal-js";
+import {PayPalButtons, usePayPalScriptReducer} from "@paypal/react-paypal-js";
 import {toast} from "react-toastify";
 
 
@@ -40,6 +40,48 @@ if(order && !order.isPaid) {
 }
 }
 }, [order, paypal, paypalDispatch, loadingPayPal, errorPayPal])
+
+
+
+function onApprove(data, actions) {
+    return actions.order.capture().then(async function (details) {
+      try {
+        await payOrder({ orderId, details });  //this comes from mutation
+        refetch();
+        toast.success('Order is paid');
+      } catch (err) {
+        toast.error(err?.data?.message || err.error);
+      }
+    });
+  }
+
+  async function onApproveTest() {
+  await payOrder({ orderId, details: { payer: {} } });
+     refetch();
+
+     toast.success('Order is paid');
+   }
+
+
+  function onError(err) {
+    toast.error(err.message);
+  }
+
+function createOrder (data, actions) {
+return actions.order.create({
+    purchase_units: [
+      {
+        amount: { value: order.totalPrice },
+      },
+    ],
+  })
+  .then((orderID) => {
+    return orderID;
+  });
+}
+    
+
+
 
 
   return (
@@ -148,7 +190,17 @@ if(order && !order.isPaid) {
                       <Col>${order.totalPrice}</Col>
                     </Row>
                   </ListGroup.Item>
-                  {/* PAY ORDER PLACEHOLDER*/}
+                  {!order.isPaid && (
+                    <ListGroup>
+                      {loadingPay && (<Loader></Loader>)}
+                      {isPending ? <Loader></Loader> 
+                      : (<div>
+                          <Button onClick={onApproveTest} style={{marginBottom: "10px"}}>
+                      Test Pay Order</Button>
+                      <PayPalButtons createOrder={createOrder} onApprove={onApprove} onError={onError}></PayPalButtons>
+                      </div>)}
+                    </ListGroup>
+                  )}
                   {/* MARK AS DELIVERED PLACEHOLDER*/}
                 </ListGroup>
               </Card>

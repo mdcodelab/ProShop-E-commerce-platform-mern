@@ -53,23 +53,30 @@ const  getOrderById = async (req, res) => {
 //update order to PAID
 //PUT api/orders/:id/pay
 //private
-const  updateOrderToPaid = async (req, res) => {
-    const order = await findById(req.params.id);
+const updateOrderToPaid = async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id);
     if (order) {
-        order.isPaid= true;
-        order.paidAt = Date.now();
-        order.paymentResult = {   //this stuff will come from PyPal (PayPal Developer Tools)
-      id: req.body.id,
-      status: req.body.status,
-      update_time: req.body.update_time,
-      email_address: req.body.email_address,
-    }
-    const updateOrder = order.save();
-    res.status(200).json({updateOrder})
+      order.isPaid = true;
+      order.paidAt = Date.now();
+      order.paymentResult = {
+        //this stuff will come from PyPal (PayPal Developer Tools)
+        id: req.body.id,
+        status: req.body.status,
+        update_time: req.body.update_time,
+        email_address: req.body.email_address,
+      };
+      const updatedOrder = await order.save();
+      res.status(200).json(updatedOrder);
     } else {
-        res.status(404).json({message: "Not found."})
+      res.status(404).json({ message: "Order not found." });
     }
-}
+  } catch (error) {
+    console.error("Error updating order:", error);
+    res.status(500).json({ message: "Internal server error." });
+  }
+};
+
 
 
 //update order to DELIVERED
