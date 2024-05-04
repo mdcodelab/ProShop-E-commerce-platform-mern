@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLogoutMutation } from "../slices/usersApiSlice";
 import {logout} from "../slices/authSlice";
 import { toast } from "react-toastify";
+import { resetCart } from "../slices/cartSlice";
 
 function Header() {
   const { cartItems} = useSelector((state) => state.cart);
@@ -21,14 +22,15 @@ function Header() {
   //console.log(userInfo);
 
   // Calculate total quantity of items in the cart
-  const totalQuantity = cartItems.reduce(
+  const totalQuantity = cartItems && cartItems.reduce(
     (total, cartItem) => total + cartItem.quantity,0);
 
     const handleLogout = async () => {
-      console.log("hello")
       try {
         await logoutApiCall().unwrap();
         dispatch(logout());  //remove from localStorage
+        //reset the cart when logout
+        dispatch(resetCart());
         toast.success("Logout successfully.");
         navigate("/login")
       } catch (err) {
@@ -55,7 +57,7 @@ function Header() {
           <Nav className="ms-auto d-flex align-items-center">
             <LinkContainer to="/cart">
               <Nav.Link className="navLink">
-                {cartItems.length > 0 && (
+                {cartItems && cartItems.length > 0 && (
                   <Badge pill bg="success" style={{ marginLeft: "5px" }}>
                     {totalQuantity}
                   </Badge>
