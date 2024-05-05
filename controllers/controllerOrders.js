@@ -90,7 +90,8 @@ const  updateOrderToDelivered = async (req, res) => {
 //GET api/orders/
 //private admin
 const  getAllOrders = async (req, res) => {
-    res.send("Get all orders");
+    const orders = await Order.find({}).populate("user", "id name");
+    res.status(200).json(orders);
 }
 
 export {addOrderItems, getMyOrders, getOrderById, updateOrderToPaid, updateOrderToDelivered, getAllOrders}

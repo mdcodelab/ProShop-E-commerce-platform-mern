@@ -1,6 +1,6 @@
 import Product from "../models/productModel.js";
 
-// Get all products  api/v1/products
+// Get all products  api/products
 //public
 export const getAllProducts = async (req, res) => {
   try {
@@ -12,7 +12,7 @@ export const getAllProducts = async (req, res) => {
 };
 
 
-// Get single product api/v1/products/:id
+// Get single product api/products/:id
 //public
 export const getProduct = async (req, res) => {
     const { id } = req.params;

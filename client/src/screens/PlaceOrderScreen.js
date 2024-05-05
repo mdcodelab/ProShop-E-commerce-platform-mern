@@ -13,8 +13,11 @@ import {toast} from "react-toastify";
 function PlaceOrderScreen() {
   const cart = useSelector((state) => state.cart);
   const[addOrderItems, {isLoading, error}]=useAddOrderItemsMutation();
+  console.log(addOrderItems);
+  
 const navigate=useNavigate();
 const dispatch=useDispatch();
+console.log(cart)
 
   // React.useEffect(() => {
   //   if (!cart.shippingAddress.address) {
