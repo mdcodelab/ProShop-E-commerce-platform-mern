@@ -22,6 +22,8 @@ import OrderScreen from "./screens/OrderScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import AdminRoute from "./components/AdminRoute";
 import AdminOrderScreen from "./screens/AdminOrderScreen";
+import AdminProductScreen from "./screens/AdminProductScreen";
+import AdminUserScreen from "./screens/AdminUserScreen";
 import "./assets/styles/bootstrap.custom.css";
 import "./assets/styles/index.css";
 import App from "./App";
@@ -48,6 +50,8 @@ const router = createBrowserRouter(
 
       <Route path="" element={<AdminRoute></AdminRoute>}>
         <Route path="/admin/orderList" element={<AdminOrderScreen></AdminOrderScreen>}></Route>
+        <Route path="/admin/productList" element={<AdminProductScreen></AdminProductScreen>}></Route>
+        <Route path="/admin/userList" element={<AdminUserScreen></AdminUserScreen>}></Route>
       </Route>
     </Route>
   )

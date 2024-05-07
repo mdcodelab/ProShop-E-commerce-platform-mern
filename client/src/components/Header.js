@@ -19,7 +19,7 @@ function Header() {
   const navigate = useNavigate();
 
   //console.log(cartItems);
-  //console.log(userInfo);
+  //console.log(userInfo.isAdmin);
 
   // Calculate total quantity of items in the cart
   const totalQuantity =
