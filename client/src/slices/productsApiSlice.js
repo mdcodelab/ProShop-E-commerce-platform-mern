@@ -10,14 +10,23 @@ export const productsApiSlice = apiSlice.injectEndpoints({
         }),
         keepUnusedDataFor: 5
     }),
+
     getProduct: builder.query({
         query: (productId) => ({
             url: `${PRODUCTS_URL}/${productId}`
         }),
         keepUnusedDataFor: 5
-    })
+    }),
+
+    createProduct: builder.mutation({
+      query: ()=> ({
+        url: PRODUCTS_URL,
+        method: "POST"
+      }),
+      invalidateTags: ["Product"]  //not cached, obtain fresh data, so we don't need to refresh the page
+    }),
+
   }),
 });
 
-export const {useGetAllProductsQuery} = productsApiSlice; 
-export const {useGetProductQuery}=productsApiSlice;
+export const {useGetAllProductsQuery, useGetProductQuery, useCreateProductMutation} = productsApiSlice;

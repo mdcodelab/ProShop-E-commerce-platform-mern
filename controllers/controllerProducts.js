@@ -30,6 +30,24 @@ export const getProduct = async (req, res) => {
         return res.status(500).json({ message: "Internal server error." });
     }
 };
+//create a new product
+//POST api/products
+//private admin
+export const createProduct = async (req, res) => {
+const product = await new Product({
+  name: "sample name",
+  price: 0,
+  user: req.user._id,
+  image: "/images/sample.jpg",
+  brand: "sample brand",
+  category: "sample category",
+  countInStock: 0,
+  numReviews: 0,
+  description: "sample description"
+});
+const newProduct = product.save();
+res.status(201).json(newProduct);
+}
 
 
 

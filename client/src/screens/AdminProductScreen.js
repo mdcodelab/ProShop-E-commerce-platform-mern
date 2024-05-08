@@ -6,9 +6,23 @@ import { useGetAllProductsQuery } from '../slices/productsApiSlice';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { FaTimes, FaEdit, FaTrash} from 'react-icons/fa';
+import { useCreateProductMutation } from '../slices/productsApiSlice';
+import {toast} from "react-toastify";
 
 function AdminProductScreen() {
-    const{data: products, isLoading, error}=useGetAllProductsQuery();
+    const{data: products, isLoading, error, refetch}=useGetAllProductsQuery();
+    const [createProduct, {isLoading: loadingCreate}]=useCreateProductMutation();
+
+    const createProductHandler = async () => {
+        if(window.confirm("Are you sure you want to create a new product?")) {
+            try {
+               await createProduct();
+               refetch();
+            } catch (err) {
+               toast.error(err?.data?.message || err?.error); 
+            }
+        }
+    }
 
     const deleteHandler = (id) => {
         console.log("delete", id);
@@ -26,6 +40,7 @@ function AdminProductScreen() {
           </Button>
         </Col>
       </Row>
+      {loadingCreate && (<Loader></Loader>)}
       {isLoading ? <Loader></Loader> : error ? <Message variant="danger">{error}</Message> : (
         <>
             <Table striped hover responsive className="table-sm">
@@ -49,7 +64,8 @@ function AdminProductScreen() {
                             <td>{product.brand}</td>
                             <td>
                                 <LinkContainer to={`/admin/product/${product._id}/edit`}>
-                                    <Button variant="light" className="btn-sm mx-2"><FaEdit></FaEdit></Button>
+                                    <Button variant="light" className="btn-sm mx-2" onClick={createProductHandler}>
+                                    <FaEdit></FaEdit></Button>
                                 </LinkContainer>
                                 <Button variant="danger" className="btn-sm" 
                                 onClick={()=>deleteHandler(product._id)}><FaTrash style={{color: "white"}}></FaTrash></Button>
