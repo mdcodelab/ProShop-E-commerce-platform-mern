@@ -45,8 +45,30 @@ const product = await new Product({
   numReviews: 0,
   description: "sample description"
 });
-const newProduct = product.save();
+const newProduct = await product.save();
 res.status(201).json(newProduct);
+}
+
+//update product
+//PUT api/products/:id
+//private, admin
+export const updateProduct = async (req, res) => {
+  const{name, price, image, brand, category, countInStock, description}=req.body;
+const product = await Product.findById(req.params._id);
+if(product) {
+  product.name=name,
+  product.price=price,
+  product.image=image,
+  product.brand=brand,
+  product.category=category,
+product.countInStock=countInStock,
+product.description=description
+
+const updatedProduct = await product.save();
+res.status(200).json(updatedProduct);
+} else {
+  res.status(404).json({message: "Resource not found."})
+}
 }
 
 
