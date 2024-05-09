@@ -25,15 +25,17 @@ const navigate=useNavigate();
 console.log(product);
 
 //fill the forms with product details
-// React.useEffect(() => {
-//   setName(product.name);
-//   setPrice(product.price);
-//   setImage(product.image);
-//   setDescription(product.description);
-//   setBrand(product.brand);
-//   setCategory(product.category);
-//   setCountInStock(product.contInStock);
-// }, [product])
+//React.useEffect(() => {
+  // if(product) {
+  //   setName(product.name);
+  //   setPrice(product.price);
+  //   setImage(product.image);
+  //   setDescription(product.description);
+  //   setBrand(product.brand);
+  //   setCategory(product.category);
+  //   setCountInStock(product.contInStock);
+  // }
+//}, [product])
 
 const submitHandler = async (e) => {
 e.preventDefault();
