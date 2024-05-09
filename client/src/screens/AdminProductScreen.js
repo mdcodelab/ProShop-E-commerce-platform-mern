@@ -1,11 +1,10 @@
 import React from 'react';
 import {Row, Col, Button, Table} from "react-bootstrap";
 import { LinkContainer } from 'react-router-bootstrap';
-import Product from "../components/Product";
 import { useGetAllProductsQuery } from '../slices/productsApiSlice';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import { FaTimes, FaEdit, FaTrash} from 'react-icons/fa';
+import { FaEdit, FaTrash} from 'react-icons/fa';
 import { useCreateProductMutation } from '../slices/productsApiSlice';
 import {toast} from "react-toastify";
 
@@ -35,8 +34,8 @@ function AdminProductScreen() {
           <h1>Products</h1>
         </Col>
         <Col className="text-end">
-          <Button className="btn-sm m-3">
-            <FaEdit></FaEdit> CreateProduct
+          <Button className="btn-sm m-3" onClick={createProductHandler}>
+            <FaEdit></FaEdit> Create Product
           </Button>
         </Col>
       </Row>
@@ -63,8 +62,8 @@ function AdminProductScreen() {
                             <td>{product.category}</td>
                             <td>{product.brand}</td>
                             <td>
-                                <LinkContainer to={`/admin/product/${product._id}/edit`}>
-                                    <Button variant="light" className="btn-sm mx-2" onClick={createProductHandler}>
+                                <LinkContainer to={`/admin/products/${product._id}/edit`}>
+                                    <Button variant="light" className="btn-sm mx-2">
                                     <FaEdit></FaEdit></Button>
                                 </LinkContainer>
                                 <Button variant="danger" className="btn-sm" 

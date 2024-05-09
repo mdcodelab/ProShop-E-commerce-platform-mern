@@ -54,7 +54,7 @@ res.status(201).json(newProduct);
 //private, admin
 export const updateProduct = async (req, res) => {
   const{name, price, image, brand, category, countInStock, description}=req.body;
-const product = await Product.findById(req.params._id);
+const product = await Product.findById(req.params.id);
 if(product) {
   product.name=name,
   product.price=price,

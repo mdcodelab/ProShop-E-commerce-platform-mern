@@ -8,6 +8,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
         query: () => ({
             url: PRODUCTS_URL
         }),
+        providesTags: ["Product"],
         keepUnusedDataFor: 5
     }),
 
@@ -23,7 +24,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
         url: PRODUCTS_URL,
         method: "POST"
       }),
-      invalidateTags: ["Product"]  //not cached, obtain fresh data, so we don't need to refresh the page
+      invalidatesTags: ["Product"]  //not cached, obtain fresh data, so we don't need to refresh the page
     }),
 
     updateProduct: builder.mutation({
@@ -32,7 +33,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
         method: "PUT",
         body: data
       }),
-      invalidateTags: ["Product"]
+      invalidatesTags: ["Product"]
     }),
 
   }),
