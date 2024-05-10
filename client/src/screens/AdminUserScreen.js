@@ -5,14 +5,23 @@ import { FaTimes, FaTrash, FaEdit, FaCheck } from "react-icons/fa";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import {toast} from "react-toastify";
-import { useGetUsersQuery } from '../slices/usersApiSlice';
+import { useGetUsersQuery, useDeleteUsersMutation } from '../slices/usersApiSlice';
 
 function AdminUserScreen() {
   const{data: users, isLoading, error, refetch}=useGetUsersQuery();
+  const[deleteUsers, {isLoading: deleteLoeding}]=useDeleteUsersMutation();
   //console.log(users);
 
   const deleteHandler = async (id) => {
-    console.log("user deleted", id);
+    if(window.confirm("Are you sure?")) {
+      try {
+        await deleteUsers(id);
+        toast.success("User deleted successfully.");
+        refetch();
+      } catch (err) {
+        toast.error(err?.data?.message || err?.error);
+      }
+    }
   }
 
   return (
@@ -52,6 +61,7 @@ function AdminUserScreen() {
                       <FaEdit></FaEdit>
                     </Button>
                   </LinkContainer>
+                  {deleteLoeding && <Loader></Loader>}
                   <Button variant="danger" className="btn-sm" onClick={()=> deleteHandler(user._id)}>
                   <FaTrash style={{color: "white"}}></FaTrash></Button>
                 </td>
