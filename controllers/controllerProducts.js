@@ -71,5 +71,19 @@ res.status(200).json(updatedProduct);
 }
 }
 
+//delete product
+//DELETE, api/products/:id
+//private, admin
+export const deleteProduct = async (req, res) => {
+const product = await Product.findById(req.params.id);
+if(product) {
+  await Product.deleteOne({_id: product._id});
+  res.status(200).json({message: "Product deleted."})
+} else {
+  res.status(404).json({message: "Resource not found."})
+}
+
+}
+
 
 

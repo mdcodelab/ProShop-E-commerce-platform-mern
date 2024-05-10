@@ -7,7 +7,7 @@ import Message from '../components/Message';
 import {toast} from "react-toastify";
 import { useGetProductQuery } from '../slices/productsApiSlice';
 import { useUpdateProductMutation } from '../slices/productsApiSlice';
-import { useUploadsProductImageMutation } from '../slices/productsApiSlice';
+import { useUploadsProductImageMutation} from '../slices/productsApiSlice';
 
 
 function AdminUpdateProduct() {

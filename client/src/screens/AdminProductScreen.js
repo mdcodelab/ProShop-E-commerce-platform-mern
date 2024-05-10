@@ -5,12 +5,13 @@ import { useGetAllProductsQuery } from '../slices/productsApiSlice';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { FaEdit, FaTrash} from 'react-icons/fa';
-import { useCreateProductMutation } from '../slices/productsApiSlice';
+import { useCreateProductMutation, useDeleteProductMutation } from '../slices/productsApiSlice';
 import {toast} from "react-toastify";
 
 function AdminProductScreen() {
     const{data: products, isLoading, error, refetch}=useGetAllProductsQuery();
     const [createProduct, {isLoading: loadingCreate}]=useCreateProductMutation();
+    const [deleteProduct, { isLoading: deleteLoading }] = useDeleteProductMutation();
 
     const createProductHandler = async () => {
         if(window.confirm("Are you sure you want to create a new product?")) {
@@ -23,8 +24,16 @@ function AdminProductScreen() {
         }
     }
 
-    const deleteHandler = (id) => {
-        console.log("delete", id);
+    const deleteHandler = async (id) => {
+        if(window.confirm("Are you sure?")) {
+          try {
+            await deleteProduct(id);
+            toast.success("Product deleted.");
+            refetch();
+          } catch (err) {
+            toast.error(err?.data?.message || err?.error)
+          }
+        }
     }
 
   return (
@@ -40,6 +49,7 @@ function AdminProductScreen() {
         </Col>
       </Row>
       {loadingCreate && (<Loader></Loader>)}
+      {deleteLoading && (<Loader></Loader>)}
       {isLoading ? <Loader></Loader> : error ? <Message variant="danger">{error}</Message> : (
         <>
             <Table striped hover responsive className="table-sm">
