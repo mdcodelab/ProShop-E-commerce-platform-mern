@@ -100,30 +100,56 @@ const updateUserProfile = async (req, res) => {
 
 //get all users (admin)
 //GET api/users 
-//Privater/admin
+//Private/admin
 const getUsers = async (req, res) => {
-    res.send("Get users");
+    const users = await User.find({});
+    res.status(200).json(users);
 }
 
 //get user by id (admin)
 //GET api/users/:id 
-//Privater/admin
+//Private/admin
 const getUserById = async (req, res) => {
-    res.send("Get user by id");
+    const user = await User.findById(req.params.id).select("-password"); //without password
+    if(user) {
+        res.status(200).json(user);
+    } else {
+        res.status(404).json({message: "Not found."})
+    }
 }
 
 //delete users (admin)
 //DELETE api/users/:id
 //Privater/admin
 const deleteUsers = async (req, res) => {
-    res.send("Delete users");
+    const user = await User.findById(req.params.id);
+    if(user) {
+        if(user.isAdmin) {
+            res.status(400).json({message: "Could not delete the admin user."})
+        }
+        await User.deleteOne({_id: user._id});
+        res.status(200).json({message: "User deleted successfully."})
+    } else {
+        res.status(404).json({message: "User not found."})
+    }
 }
 
 //update user (admin)
 //PUT api/users/:id 
-//Privater/admin
+//Private/admin
 const updateUser = async (req, res) => {
-    res.send("Update user");
+    const user = await User.findById(rq.params.id);
+    if(user) {
+        user.name=req.body.name || user.name;
+        user.email=req.body.email || user.email;
+         user.isAdmin = Boolean(req.body.isAdmin);
+
+         const updatedUser = user.save();
+        res.status(200).json({_id: updatedUser._id, 
+        name: updatedUser.name, email: updatedUser.email, isAdmin: updatedUser.isAdmin})
+    } else {
+        res.status(404).json({message: "User not found."})
+    }   
 }
 
 export {authUser, registerUser, logoutUser, getUserProfile, 
