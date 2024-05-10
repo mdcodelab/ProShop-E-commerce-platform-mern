@@ -111,12 +111,11 @@ const getUsers = async (req, res) => {
 //Private/admin
 const getUserById = async (req, res) => {
     const user = await User.findById(req.params.id).select("-password"); //without password
-    if(user) {
-        res.status(200).json(user);
-    } else {
-        res.status(404).json({message: "Not found."})
+    if(!user) {
+        res.status(404).json({message: "User not found."})
     }
-}
+    res.status(200).json(user);
+    }
 
 //delete users (admin)
 //DELETE api/users/:id
@@ -137,20 +136,28 @@ const deleteUsers = async (req, res) => {
 //update user (admin)
 //PUT api/users/:id 
 //Private/admin
-const updateUser = async (req, res) => {
-    const user = await User.findById(rq.params.id);
-    if(user) {
-        user.name=req.body.name || user.name;
-        user.email=req.body.email || user.email;
-         user.isAdmin = Boolean(req.body.isAdmin);
+  const updateUser = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        if (!user) {
+            return res.status(404).json({ message: "User not found." });
+        }
+        user.name = req.body.name || user.name;
+        user.email = req.body.email || user.email;
+        user.isAdmin = Boolean(req.body.isAdmin);
 
-         const updatedUser = user.save();
-        res.status(200).json({_id: updatedUser._id, 
-        name: updatedUser.name, email: updatedUser.email, isAdmin: updatedUser.isAdmin})
-    } else {
-        res.status(404).json({message: "User not found."})
-    }   
-}
+        const updatedUser = await user.save();
+        res.status(200).json({
+            _id: updatedUser._id,
+            name: updatedUser.name,
+            email: updatedUser.email,
+            isAdmin: updatedUser.isAdmin
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error." });
+    }
+};
 
 export {authUser, registerUser, logoutUser, getUserProfile, 
     updateUserProfile, getUsers, getUserById, deleteUsers, updateUser}

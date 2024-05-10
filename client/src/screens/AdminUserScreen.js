@@ -56,7 +56,7 @@ function AdminUserScreen() {
                   )}
                 </td>
                 <td>
-                  <LinkContainer to={`/admin/users/${user._id}`}>
+                  <LinkContainer to={`/admin/users/${user._id}/edit`}>
                     <Button variant="light" className="btn-sm">
                       <FaEdit></FaEdit>
                     </Button>

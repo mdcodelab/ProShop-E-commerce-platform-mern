@@ -25,6 +25,7 @@ import AdminOrderScreen from "./screens/AdminOrderScreen";
 import AdminProductScreen from "./screens/AdminProductScreen";
 import AdminUpdateProduct from "./screens/AdminUpdateProduct";
 import AdminUserScreen from "./screens/AdminUserScreen";
+import AdminUpdateUser from "./screens/AdminUpdateUser";
 import "./assets/styles/bootstrap.custom.css";
 import "./assets/styles/index.css";
 import App from "./App";
@@ -54,6 +55,7 @@ const router = createBrowserRouter(
         <Route path="/admin/productList" element={<AdminProductScreen></AdminProductScreen>}></Route>
         <Route path="/admin/products/:id/edit" element={<AdminUpdateProduct></AdminUpdateProduct>}></Route>
         <Route path="/admin/userList" element={<AdminUserScreen></AdminUserScreen>}></Route>
+        <Route path="/admin/users/:id/edit" element={<AdminUpdateUser></AdminUpdateUser>}></Route>
       </Route>
     </Route>
   )

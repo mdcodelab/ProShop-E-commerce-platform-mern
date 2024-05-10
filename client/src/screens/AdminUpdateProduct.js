@@ -13,12 +13,12 @@ import { useUploadsProductImageMutation} from '../slices/productsApiSlice';
 function AdminUpdateProduct() {
 const {id: _id}=useParams(); //product id
 const[name, setName]=React.useState("");
-const[price, setPrice] = React.useState("");
+const[price, setPrice] = React.useState(0);
 const[image, setImage] = React.useState("");
 const[description, setDescription] = React.useState("");
 const[brand, setBrand] = React.useState("");
 const[category, setCategory] = React.useState("");
-const[countInStock, setCountInStock] = React.useState("");
+const[countInStock, setCountInStock] = React.useState(0);
 
 const {data: product, isLoading, error, refetch}=useGetProductQuery(_id); //product id
 const[updateProduct, {isLoading: isLoadingUpdate}]=useUpdateProductMutation();
