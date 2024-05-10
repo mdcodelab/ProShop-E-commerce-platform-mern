@@ -39,9 +39,9 @@ router.post("/", (req, res) => {
     if (err) {
       return res.status(400).send({ message: err.message });
     }
-
+    console.log(req.file);
     res.status(200).send({
-      message: "Image uploaded successfully",
+      message: "Image uploaded successfully.",
       image: `/${req.file.path}`,
     });
   });

@@ -34,7 +34,7 @@ app.use(notFound);
 app.use(errorHandler);
 
 const __dirname = path.resolve(); //set __dirname as current durectory
-app.use("/uploads", express.static(path.join(__dirname, "/uploades")));
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
 const port=process.env.PORT || 4000;
 
