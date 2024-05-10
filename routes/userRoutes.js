@@ -15,13 +15,16 @@ import {
 
 import { protect, admin } from "../middlewares/authMiddleware.js";
 
-router.route("/register").post(registerUser).get(protect, admin, getUsers);
+router.route("/register").post(registerUser);
 router.route("/auth").post(authUser);
 router.route("/logout").post(logoutUser);
 router
   .route("/profile")
   .get(protect, getUserProfile)
   .put(protect, updateUserProfile);
+
+  router.route("/").get(protect, admin, getUsers);
+  
 router
   .route("/:id")
   .get(protect, admin, getUserById)
