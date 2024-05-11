@@ -53,23 +53,34 @@ res.status(201).json(newProduct);
 //PUT api/products/:id
 //private, admin
 export const updateProduct = async (req, res) => {
-  const{name, price, image, brand, category, countInStock, description}=req.body;
-const product = await Product.findById(req.params.id);
-if(product) {
-  product.name=name,
-  product.price=price,
-  product.image=image,
-  product.brand=brand,
-  product.category=category,
-product.countInStock=countInStock,
-product.description=description
+  const { name, price, image, brand, category, countInStock, description } = req.body;
+  const productId = req.params.id;
 
-const updatedProduct = await product.save();
-res.status(200).json(updatedProduct);
-} else {
-  res.status(404).json({message: "Resource not found."})
-}
-}
+  try {
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    product.name = name;
+    product.price = price;
+    product.image = image;
+    product.brand = brand;
+    product.category = category;
+    product.countInStock = countInStock;
+    product.description = description;
+
+    const updatedProduct = await product.save();
+    res.status(200).json(updatedProduct);
+  } catch (error) {
+    console.error(error);
+    if (error.name === "ValidationError") {
+      return res.status(400).json({ message: error.message });
+    }
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 
 //delete product
 //DELETE, api/products/:id

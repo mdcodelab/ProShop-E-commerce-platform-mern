@@ -4,16 +4,17 @@ import multer from "multer";
 const router = express.Router();
 
 const storage = multer.diskStorage({
-  destination(req, file, cb) {
-    cb(null, "uploads/");
+  destination: (req, file, cb) => {
+    // set the directory where uploaded files will be stored
+    cb(null, "uploads");
   },
-  filename(req, file, cb) {
-    cb(
-      null,
-      `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
-    );
+  filename: (req, file, cb) => {
+    const fileName = file.originalname;
+    // set the name of the uploaded file
+    cb(null, fileName);
   },
 });
+
 
 function fileFilter(req, file, cb) {
   const filetypes = /jpe?g|png|webp/;
