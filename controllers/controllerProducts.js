@@ -4,8 +4,13 @@ import Product from "../models/productModel.js";
 //public
 export const getAllProducts = async (req, res) => {
   try {
-    const products = await Product.find({});
-    res.status(200).json(products);
+    //pagination & total number of products
+    const pageSize = 2;  //2 products per page
+    const page = Number(req.query.pageNumber || 1); //the page number in the url
+    const numberProducts = await Product.countDocuments();
+    const products= await Product.find({}).limit(pageSize).skip(pageSize*(page-1))
+
+    res.status(200).json({products, page, numberPages: Math.round(numberProducts/pageSize) });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -120,5 +125,6 @@ product.rating=product.reviews.reduce((acc, review) => acc +  review.rating, 0) 
 await product.save();
 res.status(201).json({message: "Review added."})
 }
+
 
 

@@ -33,15 +33,12 @@ import App from "./App";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-      <Route index={true} element={<HomeScreen />} />
-      <Route
-        path="/products/:id"
-        element={<ProductScreen></ProductScreen>}
-      ></Route>
+      <Route index={true} path="/" element={<HomeScreen />} />
+      <Route path="/page/:pageNumber" element={<HomeScreen />} />
+      <Route path="/products/:id" element={<ProductScreen></ProductScreen>}></Route>
       <Route path="/cart" element={<CartScreen></CartScreen>}></Route>
       <Route path="/login" element={<LoginScreen></LoginScreen>}></Route>
       <Route path="/register" element={<RegisterScreen></RegisterScreen>}></Route>
-
       <Route path="" element={<PrivateRoute></PrivateRoute>}>
         <Route path="/shipping" element={<ShippingScreen></ShippingScreen>}></Route>
         <Route path="/payment" element={<PaymentScreen></PaymentScreen>}></Route>

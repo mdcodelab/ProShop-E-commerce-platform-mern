@@ -4,10 +4,12 @@ import Product from "../components/Product";
 import { useGetAllProductsQuery } from '../slices/productsApiSlice';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import { useParams } from 'react-router-dom';
 
 
 function HomeScreen() {
-  const {data:products, isLoading, error}=useGetAllProductsQuery();
+  const {pageNumber}=useParams();
+  const {data, isLoading, error}=useGetAllProductsQuery({pageNumber});
 
 {isLoading ? (<Loader/>) : error ? (<Message variant="danger">{error?.data.message || error.error}</Message>) : (
 <>
@@ -23,7 +25,7 @@ function HomeScreen() {
         <>
           <h1 className="text-center">Latest Products</h1>
           <Row>
-            {products.map((product) => {
+            {data.products.map((product) => {
               return (
                 <Col sm={12} md={6} lg={4} xl={3} key={product._id}>
                   <Product product={product}></Product>
