@@ -5,11 +5,13 @@ import { useGetAllProductsQuery } from '../slices/productsApiSlice';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { useParams } from 'react-router-dom';
+import PaginationComponent from '../components/PaginationComponent';
 
 
 function HomeScreen() {
   const {pageNumber}=useParams();
   const {data, isLoading, error}=useGetAllProductsQuery({pageNumber});
+  console.log(data); //products, page(current page), numberPages
 
 {isLoading ? (<Loader/>) : error ? (<Message variant="danger">{error?.data.message || error.error}</Message>) : (
 <>
@@ -33,6 +35,8 @@ function HomeScreen() {
               );
             })}
           </Row>
+
+            <PaginationComponent numberPages={data.numberPages} currentPage={data.page}></PaginationComponent>
         </>
       )}
     </>
