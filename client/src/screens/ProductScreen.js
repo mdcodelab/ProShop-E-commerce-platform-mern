@@ -15,6 +15,7 @@ function ProductScreen() {
   const { id: productId } = useParams();
 
   const { data: product, isLoading, error } = useGetProductQuery(productId);
+  console.log(product)
   const [quantity, setQuantity] = React.useState(1);
   const dispatch = useDispatch();
   const navigate = useNavigate();

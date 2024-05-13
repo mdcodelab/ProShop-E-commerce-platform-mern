@@ -1,46 +1,49 @@
-import React from 'react';
-import {Row, Col, Button, Table} from "react-bootstrap";
-import { LinkContainer } from 'react-router-bootstrap';
-import { useGetAllProductsQuery } from '../slices/productsApiSlice';
-import Loader from '../components/Loader';
-import Message from '../components/Message';
-import { FaEdit, FaTrash} from 'react-icons/fa';
-import { useCreateProductMutation, useDeleteProductMutation } from '../slices/productsApiSlice';
-import {toast} from "react-toastify";
-import { useParams } from 'react-router-dom';
-import PaginationComponent from '../components/PaginationComponent';
+import React from "react";
+import { Row, Col, Button, Table } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
+import { useGetAllProductsQuery } from "../slices/productsApiSlice";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
+import { FaEdit, FaTrash } from "react-icons/fa";
+import {
+  useCreateProductMutation,
+  useDeleteProductMutation,
+} from "../slices/productsApiSlice";
+import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
+import PaginationComponent from "../components/PaginationComponent";
 
 function AdminProductScreen() {
   const { pageNumber } = useParams();
-    const{data, isLoading, error, refetch}=useGetAllProductsQuery({pageNumber}); //get products, page, numberPages
-    console.log(data);
-    const [createProduct, {isLoading: loadingCreate}]=useCreateProductMutation();
-    const [deleteProduct, { isLoading: deleteLoading }] = useDeleteProductMutation();
+  const { data, isLoading, error, refetch } = useGetAllProductsQuery({pageNumber}); //get products, page, numberPages
+//console.log(data);
+  const [createProduct, { isLoading: loadingCreate }] =
+    useCreateProductMutation();
+  const [deleteProduct, { isLoading: deleteLoading }] =
+    useDeleteProductMutation();
 
-    const createProductHandler = async () => {
-        if(window.confirm("Are you sure you want to create a new product?")) {
-            try {
-               await createProduct();
-               refetch();
-            } catch (err) {
-               toast.error(err?.data?.message || err?.error); 
-            }
-        }
+  const createProductHandler = async () => {
+    if (window.confirm("Are you sure you want to create a new product?")) {
+      try {
+        await createProduct();
+        refetch();
+      } catch (err) {
+        toast.error(err?.data?.message || err?.error);
+      }
     }
+  };
 
-    const deleteHandler = async (id) => {
-        if(window.confirm("Are you sure?")) {
-          try {
-            await deleteProduct(id);
-            toast.success("Product deleted.");
-            refetch();
-          } catch (err) {
-            toast.error(err?.data?.message || err?.error)
-          }
-        }
+  const deleteHandler = async (id) => {
+    if (window.confirm("Are you sure?")) {
+      try {
+        await deleteProduct(id);
+        toast.success("Product deleted.");
+        refetch();
+      } catch (err) {
+        toast.error(err?.data?.message || err?.error);
+      }
     }
-
-
+  };
 
   return (
     <>
@@ -99,7 +102,10 @@ function AdminProductScreen() {
               ))}
             </tbody>
           </Table>
-          <PaginationComponent numberPages={data.numberPages} currentPage={data.page} isAdmin={true}
+          <PaginationComponent
+            numberPages={data.numberPages}
+            currentPage={data.page}
+            isAdmin={true}
           ></PaginationComponent>
         </>
       )}
@@ -107,4 +113,4 @@ function AdminProductScreen() {
   );
 }
 
-export default AdminProductScreen
+export default AdminProductScreen;

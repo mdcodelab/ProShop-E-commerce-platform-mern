@@ -5,11 +5,8 @@ import FormContainer from "../components/FormContainer";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { toast } from "react-toastify";
-import {
-  useGetProductQuery,
-  useUpdateProductMutation,
-  useUploadsProductImageMutation,
-} from "../slices/productsApiSlice";
+import {useGetProductQuery, useUpdateProductMutation, 
+  useUploadsProductImageMutation} from "../slices/productsApiSlice";
 
 function AdminUpdateProduct() {
   const { id: _id } = useParams(); // product id
@@ -25,8 +22,7 @@ function AdminUpdateProduct() {
 
   const [updateProduct, { isLoading: isLoadingUpdate }] =
     useUpdateProductMutation();
-  const [uploadsImage, { isLoading: isLoadingImage }] =
-    useUploadsProductImageMutation();
+  const [uploadsImage, { isLoading: isLoadingImage }] = useUploadsProductImageMutation();
   const navigate = useNavigate();
   // console.log(product);
 
@@ -36,10 +32,11 @@ function AdminUpdateProduct() {
       setName(product.name);
       setPrice(product.price);
       setImage(product.image);
+
       setDescription(product.description);
       setBrand(product.brand);
       setCategory(product.category);
-      setCountInStock(product.countInStock); // corrected typo
+      setCountInStock(product.countInStock); 
     }
   }, [product]);
 
@@ -63,7 +60,7 @@ function AdminUpdateProduct() {
       toast.error(result.error);
     } else {
       toast.success("Updated successfully.");
-      navigate("/admin/productlist");
+      navigate("/admin/productList");
     }
   };
 
@@ -87,7 +84,7 @@ function AdminUpdateProduct() {
 
   return (
     <>
-      <Link to="/admin/productlist" className="btn btn-light my-3">
+      <Link to="/admin/productList" className="btn btn-light my-3">
         Go Back
       </Link>
       <FormContainer>
