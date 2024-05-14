@@ -129,5 +129,16 @@ await product.save();
 res.status(201).json({message: "Review added."})
 }
 
+//carousel - get top rated products
+//GET api/products/top
+//public
+export const getTopProducts = async (req, res) => {
+const products = await Product.find({}).sort({rating: -1}).limit(3);
+if(!products) {
+  res.status(404).json({message: "Not found."})
+}
+res.status(200).json(products);
+}
+
 
 

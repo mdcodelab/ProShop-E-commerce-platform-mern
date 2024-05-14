@@ -6,6 +6,7 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { useParams, Link } from 'react-router-dom';
 import PaginationComponent from '../components/PaginationComponent';
+import ProductCarousel from '../components/ProductCarousel';
 
 
 function HomeScreen() {
@@ -21,7 +22,7 @@ function HomeScreen() {
 
   return (
     <>
-    {keyword && (<Link to="/" className="btn btn-light mb-4">Go Back</Link>)}
+    {!keyword ? <ProductCarousel></ProductCarousel> : <Link className = "btn-light mb-4" to="/">Go Back</Link>}
       {isLoading ? (<Loader></Loader>) : error ? (
         <div>{error?.data.message || error.error}</div>
       ) : (
