@@ -4,7 +4,7 @@ import Product from "../components/Product";
 import { useGetAllProductsQuery } from '../slices/productsApiSlice';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import PaginationComponent from '../components/PaginationComponent';
 
 
@@ -21,6 +21,7 @@ function HomeScreen() {
 
   return (
     <>
+    {keyword && (<Link to="/" className="btn btn-light mb-4">Go Back</Link>)}
       {isLoading ? (<Loader></Loader>) : error ? (
         <div>{error?.data.message || error.error}</div>
       ) : (
@@ -29,7 +30,7 @@ function HomeScreen() {
           <Row>
             {data.products.map((product) => {
               return (
-                <Col sm={12} md={6} lg={4} xl={3} key={product._id}>
+                <Col sm={12} md={6} lg={4} xl={3} key={product._id} className="d-flex m-auto">
                   <Product product={product}></Product>
                 </Col>
               );

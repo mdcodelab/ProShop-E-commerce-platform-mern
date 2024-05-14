@@ -9,6 +9,7 @@ import { useLogoutMutation } from "../slices/usersApiSlice";
 import { logout } from "../slices/authSlice";
 import { toast } from "react-toastify";
 import { clearCartItems } from "../slices/cartSlice";
+import SearchBoxComponent from "./SearchBoxComponent";
 
 function Header() {
   const { cartItems } = useSelector((state) => state.cart);
@@ -57,6 +58,7 @@ function Header() {
 
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto d-flex align-items-center">
+          <SearchBoxComponent></SearchBoxComponent>
             <LinkContainer to="/cart">
               <Nav.Link className="navLink">
                 {cartItems && cartItems.length > 0 && (
