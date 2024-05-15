@@ -49,7 +49,7 @@ if(order && !order.isPaid) {
 function onApprove(data, actions) {
     return actions.order.capture().then(async function (details) {
       try {
-        await payOrder({ orderId, details });  //this comes from mutation
+        await payOrder({ orderId, details }).unwrap();  //this comes from mutation
         refetch();
         toast.success('Order is paid');
       } catch (err) {

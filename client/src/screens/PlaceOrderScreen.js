@@ -38,12 +38,13 @@ console.log(cart)
         taxPrice: cart.taxPrice,
         totalPrice: cart.totalPrice,
       }).unwrap();
-      navigate(`/orders/${res.orderCreated._id}`); //capture the id for the next page we navigate
+      console.log(res);
+      navigate(`/orders/${res._id}`); //capture the id for the next page we navigate
       dispatch(clearCartItems());
     } catch (err) {
       console.log(err);
       console.error(err);
-      toast.error("There is an error");
+      toast.error("There is an error.");
     }
   }
 
