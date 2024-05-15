@@ -15,7 +15,7 @@ function App() {
       <Header></Header>
       <main className="py-3">
         <Container>
-          {isHomePage && <h1 className="text-center">Welcome to ProShop</h1>}
+          {isHomePage && <h1 className="text-center py-3">Welcome to ProShop</h1>}
           <Outlet></Outlet>
         </Container>
       </main>

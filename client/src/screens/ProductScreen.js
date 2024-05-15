@@ -10,6 +10,7 @@ import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { useCreateProductMutation } from "../slices/productsApiSlice";
 import { toast } from "react-toastify";
+import Meta from "../components/Meta";
 
 function ProductScreen() {
   const { id: productId } = useParams();
@@ -57,6 +58,7 @@ function ProductScreen() {
         </Message>
       ) : (
         <>
+          <Meta title={product.name}></Meta>
           <Row>
             <Col md={6}>
               <Image src={product.image} alt={product.name} fluid />
