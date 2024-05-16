@@ -7,8 +7,8 @@ import { AiFillTwitterCircle } from "react-icons/ai";
 import { FaMapLocation } from "react-icons/fa6";
 import { MdOutlinePhoneInTalk } from "react-icons/md";
 import { AiOutlineMail } from "react-icons/ai";
-
-
+import { SiYoutubemusic } from "react-icons/si";
+import { FaInstagram } from "react-icons/fa";
 
 function Footer() {
     const currentYear=new Date().getFullYear();
@@ -35,6 +35,8 @@ function Footer() {
               <Col>
                 <FaTelegram className="icon"></FaTelegram>
               </Col>
+              <Col><FaInstagram className="icon"></FaInstagram></Col>
+              <Col><SiYoutubemusic className="icon"></SiYoutubemusic></Col>
             </Row>
           </Col>
           <Col sm={3} className="pt-2">

@@ -18,7 +18,7 @@ import { notFound, errorHandler } from "./middlewares/errorMiddleware.js";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
-app.use(express.static(path.resolve(__dirname, "./uploads")));
+app.use(express.static(path.resolve(__dirname, "./public")));
 
 //cookie parser middleware - allows us to access cookies
 app.use(cookieParser());
@@ -34,10 +34,20 @@ app.get("/", (req, res) => {
 app.use("/api/products", routerProducts);
 app.use("/api/users", routerUsers);
 app.use("/api/orders", routerOrders);
-app.use("/api/uploads", routerUploads);
+app.use("/api/public/uploads", routerUploads);
 app.get("/api/config/paypal", (req, res) => {
   res.send({ clientId: process.env.PAYPAL_CLIENT_ID });
 });
+
+//entry point for the front-end: node server /localhost:4000
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "./public", "index.html"));
+});
+
+app.use("*", (req, res) => {
+  res.status(404).json({ msg: "not found" });
+});
+
 app.use(notFound);
 app.use(errorHandler);
 

@@ -8,7 +8,6 @@ import { addToCart } from "../slices/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
-import { useCreateProductMutation } from "../slices/productsApiSlice";
 import { toast } from "react-toastify";
 import Meta from "../components/Meta";
 
@@ -16,7 +15,7 @@ function ProductScreen() {
   const { id: productId } = useParams();
 
   const { data: product, isLoading, error } = useGetProductQuery(productId);
-  console.log(product)
+  console.log(product);
   const [quantity, setQuantity] = React.useState(1);
   const dispatch = useDispatch();
   const navigate = useNavigate();
