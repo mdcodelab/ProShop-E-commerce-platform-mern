@@ -59,3 +59,25 @@ a {
 .navLink {
   width: max-content;
 }
+
+.icon {
+  font-size: 28px;
+  color: rgb(192,192,192);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  border-radius: 50%;
+}
+
+.icon:hover {
+  color: rgb(220,220,220);
+  transform: scale(1.1);
+  background: green;
+}
+
+.link {
+transition: all 0.3s ease-in-out;
+}
+
+.link:hover {
+color: green !important;
+}

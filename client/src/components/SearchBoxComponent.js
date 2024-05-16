@@ -20,7 +20,7 @@ function SearchBoxComponent() {
     }
 
   return (
-    <Form onSubmit={submitHandler} className="d-flex">
+    <Form onSubmit={submitHandler} className="d-flex my-sm-3">
         <Form.Control type="text" value={keyword} name="q" placeholder="Search products..."
         onChange={(e)=>setKeyword(e.target.value)} style={{width: "200px"}}></Form.Control>
         <Button type="submit" variant="outline-light" className="p-2 mx-2">Search</Button>

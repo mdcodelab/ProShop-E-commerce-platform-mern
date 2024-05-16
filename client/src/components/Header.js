@@ -60,7 +60,7 @@ function Header() {
           <Nav className="ms-auto d-flex align-items-center">
           <SearchBoxComponent></SearchBoxComponent>
             <LinkContainer to="/cart">
-              <Nav.Link className="navLink">
+              <Nav.Link className="navLink my-sm-2 col-xs-10">
                 {cartItems && cartItems.length > 0 && (
                   <Badge pill bg="success" style={{ marginLeft: "5px" }}>
                     {totalQuantity}
