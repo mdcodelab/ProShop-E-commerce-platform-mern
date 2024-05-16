@@ -14,10 +14,10 @@ function Footer() {
     const currentYear=new Date().getFullYear();
 
   return (
-    <footer className="pt-4 text-white" style={{ backgroundColor: "black", marginTop: "3rem" }}>
+    <footer className="pt-3 text-white" style={{ backgroundColor: "black", marginTop: "3rem" }}>
       <Container>
         <Row>
-          <Col sm={5}>
+          <Col sm={5} className="pt-2">
             <h6 className="">ProShop</h6>
             <p style={{ color: "rgb(192,192,192)", fontSize: "0.8rem" }} className="py-2">
               Our electronics store offers a wide range of high-quality products
@@ -37,37 +37,37 @@ function Footer() {
               </Col>
             </Row>
           </Col>
-          <Col sm={3}>
-            <h6>Useful links</h6>
-            <Row className="py-1">
+          <Col sm={3} className="pt-2">
+            <h6 className="text-center">Useful links</h6>
+            <Row className="py-1 text-center">
               <Link to="/" style={{ color: "rgb(192,192,192)", fontSize: "0.85rem" }} className="link">Home</Link>
             </Row>
-            <Row className="py-1">
+            <Row className="py-1 text-center">
               <Link to="/profile" style={{ color: "rgb(192,192,192)", fontSize: "0.85rem" }} className="link">My Profile</Link>
             </Row>
-            <Row className="py-1">
+            <Row className="py-1 text-center">
               <Link to="/placeOrder" style={{ color: "rgb(192,192,192)", fontSize: "0.85rem" }} className="link">My Orders</Link>
             </Row>
-            <Row className="py-1">
+            <Row className="py-1 text-center">
               <Link style={{ color: "rgb(192,192,192)", fontSize: "0.85rem" }} className="link">Terms & Conditions</Link>
             </Row>
           </Col>
-          <Col sm={4}>
-            <h6>Contact</h6>
+          <Col sm={4} className="pt-2">
+            <h6 className="text-center">Contact</h6>
             <Container
-              className="py-1" style={{ color: "rgb(192,192,192)", fontSize: "0.85rem" }}>
+              className="py-1 text-center" style={{ color: "rgb(192,192,192)", fontSize: "0.85rem" }}>
               <FaMapLocation className="icon icon-contact"></FaMapLocation> 1500
               22th Street Sacramento CA 95888
             </Container>
-            <Container className="py-1" style={{ color: "rgb(192,192,192)", fontSize: "0.85rem" }}>
+            <Container className="py-1 text-center" style={{ color: "rgb(192,192,192)", fontSize: "0.85rem" }}>
               <AiOutlineMail className="icon icon-contact"></AiOutlineMail>{" "}
               contact@proshop.com
             </Container>
-            <Container className="py-1" style={{ color: "rgb(192,192,192)", fontSize: "0.85rem" }}>
+            <Container className="py-1 text-center" style={{ color: "rgb(192,192,192)", fontSize: "0.85rem" }}>
               <MdOutlinePhoneInTalk className="icon icon-contact"></MdOutlinePhoneInTalk>{" "}
               (916) 653 3555
             </Container>
-            <Container className="py-1" style={{ color: "rgb(192,192,192)", fontSize: "0.85rem" }}>
+            <Container className="py-1 text-center" style={{ color: "rgb(192,192,192)", fontSize: "0.85rem" }}>
               <FaCcPaypal className="icon icon-contact"></FaCcPaypal> Pay with
               PyPal
             </Container>

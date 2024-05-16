@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import {Row, Col, ListGroup, Image, Form, Button, CardFooter, Card} from "react-bootstrap";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
-import { useSelector } from "react-redux";
+import { useSelector} from "react-redux";
 import { useGetOrderDetailsQuery, useGetPayPalClientIdQuery, 
   useUpdateOrderToPaidMutation, useUpdateToDeliveredMutation } from "../slices/ordersApiSlice";
 import {PayPalButtons, usePayPalScriptReducer} from "@paypal/react-paypal-js";
