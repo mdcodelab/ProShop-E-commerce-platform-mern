@@ -18,7 +18,7 @@ import { notFound, errorHandler } from "./middlewares/errorMiddleware.js";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
-app.use(express.static(path.resolve(__dirname, "./public")));
+app.use(express.static(path.resolve(__dirname, "./client/build")));
 
 //cookie parser middleware - allows us to access cookies
 app.use(cookieParser());
@@ -41,7 +41,7 @@ app.get("/api/config/paypal", (req, res) => {
 
 //entry point for the front-end: node server /localhost:4000
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "./public", "index.html"));
+  res.sendFile(path.join(__dirname, "./client/build", "index.html"));
 });
 
 app.use("*", (req, res) => {
