@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import {Row, Col, ListGroup, Image, Form, Button, CardFooter, Card} from "react-bootstrap";
+import {Row, Col, ListGroup, Image, Form, Button, Card} from "react-bootstrap";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { useSelector} from "react-redux";

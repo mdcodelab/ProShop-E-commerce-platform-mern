@@ -1,6 +1,5 @@
 import React from 'react';
 import {Container, Row, Col} from "react-bootstrap";
-import { LinkContainer } from 'react-router-bootstrap';
 import {Link} from "react-router-dom";
 import { FaFacebook, FaTelegram, FaCcPaypal} from "react-icons/fa";
 import { AiFillTwitterCircle } from "react-icons/ai";
